@@ -1,45 +1,37 @@
 package max;
 import java.util.*;
-public class Maximum {
-	public static void main(String arg[])
-	{
-		System.out.println(findy(new int[]{1,2,3,4,2,2,2,2,2,2}));
-	}
-	public static int findy(int a[])
-	{
-		/*HashMap<Integer,Integer>hm=new HashMap<Integer,Integer>();
-		int max=a.length/2;
-		int p=0;
-		for(int i=0;i<a.length;i++)
+//A class to find the maximum occurred element
+public final class Maximum{
+	
+	//Constructor
+	
+	private Maximum() 
+	{}
+	 //To find the maximum occurrence
+	
+	public  static int findy(final int... array)throws InvalidException
+	{		
+		List<Integer> larray=new ArrayList<>();
+		for(final Integer index:array)
 		{
-			if(hm.containsKey(a[i]))
+			larray.add(index);
+		}
+		Set<Integer>unique=new HashSet<>(larray);
+		int result=Integer.MAX_VALUE;
+		for(Integer element:unique)
+		{
+			if(Collections.frequency(larray, element)>=array.length/2)
 			{
-				p=hm.get(a[i]);
-				hm.put(a[i],p+1);
-			}
-			else
-				hm.put(a[i],1);
-			if(p>=max)
-			{
-				return a[i];
+				result=element;
+				break;
 			}
 		}
-		return -1;
-	}*/
-		
-		List<Integer> l=new ArrayList<Integer>();
-		for(int i=0;i<a.length;i++)
-		l.add(a[i]);
-		Set<Integer>s=new HashSet<Integer>(l);
-		for(Integer k:s)
+		if(result==Integer.MAX_VALUE)
 		{
-			if(Collections.frequency(l, k)>=a.length/2)
-			{
-				return k;
-			}
+			throw new InvalidException("No element occurred more than the half of the length of the array");
 		}
-			
-		return -1;
+		else
+		return result;
 		
 	}
 }

@@ -11,6 +11,8 @@ plugins {
     id 'java-library'
     id 'java'
     id 'application'
+    id 'info.solidsoft.pitest' version '1.5.1'
+    id 'jacoco'
 }
 
 repositories {
@@ -27,6 +29,50 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:28.2-jre'
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.3.1')
+    testCompile('org.junit.jupiter:junit-jupiter-engine:5.3.1')
+    classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.5.1'
+}
+/*
+test{
+	useJunitPlatform()
+	testLogging.showStandardStreams=true
+	ignoreFailures = true
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+test{
+finalizedBy jacocoTestReport
 }
 
+jacocoTestCoverageVerification {
+     violationRules { 
+             rule { 
+                  limit { 
+                        minimum = 1.0
+                  } 
+             } 
+     } 
+}
+jacocoTestReport
+{
+dependOn test
+    reports {
+        xml.enabled true
+        csv.enabled false
+        
+    }
+}
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+    executionData(test)
+}
+check.dependsOn jacocoTestCoverageVerification*/
